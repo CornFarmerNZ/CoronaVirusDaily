@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Coronavirus (COVID-19) Statistics</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" media="screen">
+
+
+
+</head>
+
+<body>
+<div class="container">
+<h1 style="background-color: lightblue">Coronavirus (COVID-19) Statistics</h1>
+<p>This page tracks the current number of reported cases globally.</p>
+
+
+
+
+<div class="jumbotron">
+    <h1 class="display-4"><strong th:text="${totalReportedCases}">Total Cases</strong></h1>
+    <p class="lead">Total cases reported as of today</p>
+    <hr class="my-4">
+    <p>
+        <span>New cases reported today: </span>
+        <span th:text="${totalNewCases}"></span>
+    </p>
+    <hr class="my-4">
+    <p>
+        <span>Country with the largest reported cases today is </span>
+        <span th:text="${largestTodayString}"></span>
+        <span th:text="${largestTodayInt}"></span>
+    </p>
+</div>
+
+
+<div class="bd-callout bd-callout-info">
+
+</div>
+
+
+
+<table class="table">
+    <tr>
+        <th>Country</th>
+        <th>State</th>
+        <th>Cases-to-date</th>
+    </tr>
+    <tr th:each="stat : ${locationStats}">
+        <td th:text="${stat.getCountry()}"></td>
+        <td th:text="${stat.getState()}"></td>
+        <td th:text="${stat.getLatestTotal()}">n/a</td>
+        <td>+</td>
+        <td th:text="${stat.getIncrease()}" >n/a</td>
+    </tr>
+</table>
+</div>
+</body>
+
+</html>
