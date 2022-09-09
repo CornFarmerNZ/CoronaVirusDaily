@@ -21,18 +21,18 @@
 
 
 <div class="jumbotron">
-    <h1 class="display-4"><strong th:text="${totalReportedCases}">Total Cases</strong></h1>
+    <h1 class="display-4"><strong th:text="${totalCasesString}">Total Cases</strong></h1>
     <p class="lead">Total cases reported as of today</p>
     <hr class="my-4">
     <p>
         <span>New cases reported today: </span>
-        <span th:text="${totalNewCases}"></span>
+        <span th:text="${totalNewCasesString}"></span>
     </p>
     <hr class="my-4">
     <p>
         <span>Country with the largest reported cases today is </span>
         <span th:text="${largestTodayString}"></span>
-        <span th:text="${largestTodayInt}"></span>
+        <span th:text="${largestTodayIntString}"></span>
     </p>
 </div>
 

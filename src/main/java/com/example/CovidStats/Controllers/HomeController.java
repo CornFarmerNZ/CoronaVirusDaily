@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
@@ -21,10 +22,14 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(Model model){
+        DecimalFormat formatter = new DecimalFormat("#,###");
         List<LocationStats> allStats = service.getAllStats();
         int totalCases = allStats.stream().mapToInt(stat -> stat.getLatestTotal()).sum();
         int totalNewCases = allStats.stream().mapToInt(stat -> stat.getIncrease()).sum();
         int largestTodayInt = allStats.stream().mapToInt(stat -> stat.getIncrease()).max().getAsInt();
+        String totalCasesString = formatter.format(totalCases);
+        String totalNewCasesString = formatter.format(totalNewCases);
+        String largestTodayIntString = formatter.format(largestTodayInt);
         Optional<String> largestToday = allStats.stream().filter(stat -> stat.getIncrease() == largestTodayInt).map(stat -> stat.getCountry()).findFirst();
         String largestTodayString = "";
         if(largestToday.isPresent())
@@ -34,6 +39,9 @@ public class HomeController {
         model.addAttribute("totalNewCases", totalNewCases);
         model.addAttribute("largestTodayInt", largestTodayInt);
         model.addAttribute("largestTodayString", largestTodayString);
+        model.addAttribute("totalCasesString",totalCasesString);
+        model.addAttribute("totalNewCasesString", totalNewCasesString);
+        model.addAttribute("largestTodayIntString", largestTodayIntString);
         return "home";
     }
 
