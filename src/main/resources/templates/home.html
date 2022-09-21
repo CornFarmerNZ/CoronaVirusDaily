@@ -35,7 +35,20 @@
         <span th:text="${largestTodayIntString}"></span>
     </p>
     <hr class="my-4">
-    <div style="font-size: smaller">Last refreshed <span style="font-weight: bolder" th:text="${lastRefreshedTime}"></span> minutes ago. View on <a href="https://github.com/CornFarmerNZ/CoronaVirusDaily"> <img th:width="160" th:height="90" th:src="@{images/GitHub-Emblem.png}" alt="GitHub Page"></img></a></div>
+    <div style="font-size: smaller">
+        Last refreshed
+        <span th:if="${lastRefreshedTimeMins < 60}">
+                    <span style="font-weight: bolder" th:text="${lastRefreshedTimeMins}"></span>
+        minutes ago. View on
+        </span>
+        <span th:unless="${lastRefreshedTimeMins < 60}">
+              <span style="font-weight: bolder" th:text="${lastRefreshedTimeHours}"></span>
+        hours ago. View on
+        </span>
+        <a href="https://github.com/CornFarmerNZ/CoronaVirusDaily">
+        <img th:width="160" th:height="90" th:src="@{images/GitHub-Emblem.png}" alt="GitHub Page"></img>
+    </a>
+    </div>
 </div>
 
 

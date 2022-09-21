@@ -36,7 +36,9 @@ public class HomeController {
         Duration timeSinceRefresh = Duration.between(Instant.now(), service.getRefreshTime());
         String largestTodayString = "";
         timeSinceRefresh = timeSinceRefresh.abs();
-        Long hoursSinceRefresh = timeSinceRefresh.toMinutes();
+        Long minsSinceRefresh = timeSinceRefresh.toMinutes();
+        Long hoursSinceRefresh =
+                timeSinceRefresh.toHours() + (timeSinceRefresh.toMinutes()/60-timeSinceRefresh.toHours());
 
 
         if(largestToday.isPresent())
@@ -49,7 +51,8 @@ public class HomeController {
         model.addAttribute("totalCasesString",totalCasesString);
         model.addAttribute("totalNewCasesString", totalNewCasesString);
         model.addAttribute("largestTodayIntString", largestTodayIntString);
-        model.addAttribute("lastRefreshedTime", hoursSinceRefresh);
+        model.addAttribute("lastRefreshedTimeMins", minsSinceRefresh);
+        model.addAttribute("lastRefreshedTimeHours", hoursSinceRefresh);
         return "home";
     }
 
