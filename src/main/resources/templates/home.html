@@ -14,6 +14,7 @@
 
 <body>
 <div class="container">
+
 <h1 style="background-color: lightblue">Coronavirus (COVID-19) Statistics</h1>
 <p>This page tracks the current number of reported cases globally.</p>
 
@@ -33,6 +34,8 @@
         <span th:text="${largestTodayString}"></span>
         <span th:text="${largestTodayIntString}"></span>
     </p>
+    <hr class="my-4">
+    <div style="font-size: smaller">Last refreshed <span style="font-weight: bolder" th:text="${lastRefreshedTime}"></span> minutes ago. View on <a href="https://github.com/CornFarmerNZ/CoronaVirusDaily"> <img th:width="160" th:height="90" th:src="@{images/GitHub-Emblem.png}" alt="GitHub Page"></img></a></div>
 </div>
 
 
@@ -57,7 +60,6 @@
         <td th:text="${stat.getIncrease()}" >n/a</td>
     </tr>
 </table>
-    <div>Last refreshed <span th:text="${lastRefreshedTime}"></span> minutes ago. View on <a href="https://github.com/CornFarmerNZ/CoronaVirusDaily"> <img th:width="160" th:height="90" th:src="@{images/GitHub-Emblem.png}" alt="GitHub Page"></img></a></div>
 </div>
 </body>
 
