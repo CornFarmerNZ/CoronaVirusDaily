@@ -19,7 +19,6 @@
 
 
 
-
 <div class="jumbotron">
     <h1 class="display-4"><strong th:text="${totalCasesString}">Total Cases</strong></h1>
     <p class="lead">Total cases reported as of today</p>
@@ -35,6 +34,7 @@
         <span th:text="${largestTodayIntString}"></span>
     </p>
 </div>
+
 
 
 <div class="bd-callout bd-callout-info">
@@ -57,6 +57,7 @@
         <td th:text="${stat.getIncrease()}" >n/a</td>
     </tr>
 </table>
+    <div>Last refreshed <span th:text="${lastRefreshedTime}"></span> minutes ago. View on <a href="https://github.com/CornFarmerNZ/CoronaVirusDaily"> <img th:width="160" th:height="90" th:src="@{images/GitHub-Emblem.png}" alt="GitHub Page"></img></a></div>
 </div>
 </body>
 

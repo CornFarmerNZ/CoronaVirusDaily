@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.text.DecimalFormat;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
@@ -31,7 +33,12 @@ public class HomeController {
         String totalNewCasesString = formatter.format(totalNewCases);
         String largestTodayIntString = formatter.format(largestTodayInt);
         Optional<String> largestToday = allStats.stream().filter(stat -> stat.getIncrease() == largestTodayInt).map(stat -> stat.getCountry()).findFirst();
+        Duration timeSinceRefresh = Duration.between(Instant.now(), service.getRefreshTime());
         String largestTodayString = "";
+        timeSinceRefresh = timeSinceRefresh.abs();
+        Long hoursSinceRefresh = timeSinceRefresh.toMinutes();
+
+
         if(largestToday.isPresent())
         {  largestTodayString = largestToday.get() + ":";}
         model.addAttribute("locationStats", allStats);
@@ -42,6 +49,7 @@ public class HomeController {
         model.addAttribute("totalCasesString",totalCasesString);
         model.addAttribute("totalNewCasesString", totalNewCasesString);
         model.addAttribute("largestTodayIntString", largestTodayIntString);
+        model.addAttribute("lastRefreshedTime", hoursSinceRefresh);
         return "home";
     }
 

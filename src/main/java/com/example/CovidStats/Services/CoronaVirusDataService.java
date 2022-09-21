@@ -11,6 +11,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -36,6 +37,17 @@ public class CoronaVirusDataService {
     }
     private List<LocationStats> allStats = new ArrayList<>();
 
+    public Instant getRefreshTime() {
+        return refreshTime;
+    }
+
+    public void setRefreshTime(Instant refreshTime) {
+        this.refreshTime = refreshTime;
+    }
+
+    private Instant refreshTime;
+
+
     @PostConstruct
     @Scheduled(cron = "* * * 1 * *")
     public void fetchVirusData() throws InterruptedException, IOException {
@@ -46,6 +58,7 @@ public class CoronaVirusDataService {
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         StringReader csvBodyReader = new StringReader(response.body());
         Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(csvBodyReader);
+        refreshTime = Instant.now();
 
         for (CSVRecord record : records) {
             LocationStats locationStat = new LocationStats();

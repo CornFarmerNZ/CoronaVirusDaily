@@ -4,6 +4,8 @@
  */
 package com.example.CovidStats.Models;
 
+import java.time.Instant;
+
 /**
  *
  * @author tim
@@ -60,10 +62,12 @@ public class LocationStats {
         return this.increase;
     }
 
+
     private String state;
     private String country;
     private int latestTotal;
     private int increase;
+
 
 
     public String toString() {
